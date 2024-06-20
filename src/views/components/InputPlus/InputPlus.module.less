@@ -1,0 +1,37 @@
+.inputPlus {
+    width: 100%;
+    display: grid;
+     grid-template-columns: 1fr 45px;
+}
+
+.inputPlusValue {
+    border: 1px solid #C3C3C3;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 10px;
+    font: 1rem/1.5 'Nunito', sans-serif;
+    background: #F8F2F4;
+}
+
+.inputPlusValue::placeholder {
+    color: #7B7B7B;
+}
+
+.inputPlusButton {
+    border-radius: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background: #E53170;
+    transition: opacity 0.3s;
+}
+
+.inputPlusButton:hover {
+    opacity: 0.7;
+}
+
+.inputPlusButtonIcon {
+    transform: scale(1.5);
+    padding-top: 3px; //нормально можно выровнять?
+}

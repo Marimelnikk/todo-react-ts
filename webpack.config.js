@@ -15,7 +15,9 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx"],
+		extensions: [".ts", ".tsx", ".js", ".jsx"], alias: {
+			images: path.resolve(__dirname, "src/images"),
+		}
 	},
 
 	plugins: [
@@ -68,6 +70,20 @@ module.exports = {
 					},
 				],
 			},
+			{
+				test: /\.svg$/i,
+				type: "asset",
+				resourceQuery: /url/, // *.svg?url
+				generator: {
+				  filename: "images/[name][ext]",
+				},
+			  },
+			  {
+				test: /\.svg$/i,
+				issuer: /\.[jt]sx?$/,
+				resourceQuery: { not: [/url/] }, // не генерировать компонент, если import заканчивается на *.svg?url
+				use: [{ loader: "@svgr/webpack", options: { icon: true } }],
+			  },
 		],
 	},
 
