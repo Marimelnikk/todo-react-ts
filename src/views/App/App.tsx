@@ -9,17 +9,26 @@ const App: React.FC = () => {
 	const [tasks, setTasks] = useState<{ id: number; title: string; isCompleted: boolean }[]>([]);
 
 	const addTask = (title: string) => {
-		const newTasks = [{ id: Math.random(), title, isCompleted: false }, ...tasks]; // уникальный id?
-		setTasks(newTasks);
+		if (title.length > 0) {
+			setTasks([...tasks, { id: tasks.length++, title, isCompleted: false }]);
+		}
 	};
 
-	const changeTodo = (id: number) => {
-		const newTasks = [...tasks];
-		const taskId = newTasks.find((i) => i.id === id);
-		// taskId.isCompleted = !taskId?.isCompleted;
-		setTasks(newTasks);
+	const checkTask = (id: number) => {
+		setTasks(
+			tasks.map((task) => {
+				if (task.id === id) {
+					return { ...task, isCompleted: !task.isCompleted };
+				}
+				return task;
+			})
+		);
 	};
-	console.log(tasks);
+
+	const removeTask = (id: number) => {
+		setTasks(tasks.filter((task) => task.id !== id));
+	};
+
 	return (
 		<article className={styles.article}>
 			<h1 className={styles.articleTitle}>To Do List</h1>
@@ -27,7 +36,7 @@ const App: React.FC = () => {
 				<InputPlus addTask={addTask} />
 			</section>
 			<section className={styles.articleSection}>
-				<List tasks={tasks} changeTodo={changeTodo} />
+				<List tasks={tasks} checkTask={checkTask} removeTask={removeTask} />
 			</section>
 		</article>
 	);

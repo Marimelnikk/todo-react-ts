@@ -1,20 +1,19 @@
 import React from "react";
 
-import { Todo } from "../Todo/Todo";
-
-import styles from "./List.module.less";
+import { Todo } from "../Task/Task";
 
 interface IProps {
 	tasks: Array<{ id: number; title: string; isCompleted: boolean }>;
-	changeTodo: (id: number) => void;
+	checkTask: (id: number) => void;
+	removeTask: (id: number) => void;
 }
 
-const List: React.FC<IProps> = (props) => {
+const List: React.FC<IProps> = ({ tasks, checkTask, removeTask }) => {
 	return (
 		<div>
-			<ul className={styles.list}>
-				{props.tasks.map((item) => (
-					<Todo data={item} />
+			<ul>
+				{tasks.map((item) => (
+					<Todo data={item} key={item.id} checkTask={checkTask} removeTask={removeTask} />
 				))}
 			</ul>
 		</div>
